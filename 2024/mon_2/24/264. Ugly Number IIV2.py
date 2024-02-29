@@ -8,36 +8,39 @@ from typing import List, Set
 class Solution:
     def nthUglyNumber(self, n: int) -> int:
         """
-        使用hash set理论上
-        T(n): O(n**x)
+        T(n): (O(n),O(n**2)),猜测时间复杂度是O(nlog(n))
         S(n): O(n)
-        S(n) 可以优化为 O(n)
-        严重超时
+        因为构成的因素是2,3,5
+            1. 从<5>开始的数后面的数字一定是前面的数字的乘积
+            2. 采用三指针
         """
         rec_f: List[int] = [i + 1 for i in range(5)]
         if n <= 5:
             return rec_f[n - 1]
+        index_2 = 1
+        index_3 = 1
+        index_5 = 1
+        while len(rec_f) < n:
+            while rec_f[index_2] * 2 <= rec_f[-1]:
+                index_2 += 1
+            while rec_f[index_3] * 3 <= rec_f[-1]:
+                index_3 += 1
+            while rec_f[index_5] * 5 <= rec_f[-1]:
+                index_5 += 1
+            val_min = min(2 * rec_f[index_2], 3 * rec_f[index_3], 5 * rec_f[index_5])
+            if val_min == 2 * rec_f[index_2]:
+                index_2 += 1
+            elif val_min == 3 * rec_f[index_3]:
+                index_3 += 1
+            elif val_min == 5 * rec_f[index_5]:
+                index_5 += 1
+            rec_f.append(val_min)
 
-        dis_set: Set = set(rec_f)
-        now_len = 5
-        now_val = 5
-        while now_len < n:
-            now_val += 1
-            if now_val % 2 == 0 and now_val // 2 in dis_set:
-                dis_set.add(now_val)
-                now_len += 1
-            elif now_val % 3 == 0 and now_val // 3 in dis_set:
-                dis_set.add(now_val)
-                now_len += 1
-            elif now_val % 5 == 0 and now_val // 5 in dis_set:
-                dis_set.add(now_val)
-                now_len += 1
-
-        return now_val
+        return rec_f[-1]
 
 
 if __name__ == "__main__":
     s = Solution()
-    # print(s.nthUglyNumber(1350))
-    for i in range(1, 1350):
-        print(i, s.nthUglyNumber(i))
+    print(s.nthUglyNumber(1350))
+    # for i in range(1, 1350):
+    #     print(i, s.nthUglyNumber(i))

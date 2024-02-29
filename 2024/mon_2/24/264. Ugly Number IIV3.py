@@ -2,41 +2,33 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 """
+import heapq
 from typing import List, Set
 
 
 class Solution:
     def nthUglyNumber(self, n: int) -> int:
         """
-        T(n): (O(n),O(n**2))
+        T(n): (nlog(n))
         S(n): O(n)
         因为构成的因素是2,3,5
             1. 从<5>开始的数后面的数字一定是前面的数字的乘积
             2. 采用三指针
         """
-        rec_f: List[int] = [i + 1 for i in range(5)]
-        if n <= 5:
-            return rec_f[n - 1]
-        index_2 = 1
-        index_3 = 1
-        index_5 = 1
-        while len(rec_f) < n:
-            while rec_f[index_2] * 2 <= rec_f[-1]:
-                index_2 += 1
-            while rec_f[index_3] * 3 <= rec_f[-1]:
-                index_3 += 1
-            while rec_f[index_5] * 5 <= rec_f[-1]:
-                index_5 += 1
-            val_min = min(2 * rec_f[index_2], 3 * rec_f[index_3], 5 * rec_f[index_5])
-            if val_min == 2 * rec_f[index_2]:
-                index_2 += 1
-            elif val_min == 3 * rec_f[index_3]:
-                index_3 += 1
-            elif val_min == 5 * rec_f[index_5]:
-                index_5 += 1
-            rec_f.append(val_min)
-
-        return rec_f[-1]
+        if n <= 6:
+            return n
+        heap = [1]
+        diff_set: Set = set()
+        times = 0
+        val_235 = [2, 3, 5]
+        while times < n - 1:
+            popped = heapq.heappop(heap)
+            times += 1
+            for item in val_235:
+                if popped * item not in diff_set:
+                    diff_set.add(popped * item)
+                    heapq.heappush(heap, popped * item)
+        return heap[0]
 
 
 if __name__ == "__main__":

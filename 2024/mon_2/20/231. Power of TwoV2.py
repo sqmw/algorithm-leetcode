@@ -3,10 +3,19 @@ from typing import List
 
 class Solution:
     def isPowerOfTwo(self, n: int) -> bool:
-        pow2list: List[int] = [1, 2, 4, 8, 2 ** 4, 2 ** 5, 2 ** 6, 2 ** 7, 2 ** 8]
-        ...
+        """
+        T(n): O(n)
+        S(n): O(log(n))
+        """
+        if n == 0:
+            return False
+        b_num_str = bin(n)
+        for i in range(3, len(b_num_str)):
+            if b_num_str[i] == '1':
+                return False
+        return True
 
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.isPowerOfTwo())
+    print(s.isPowerOfTwo(0))

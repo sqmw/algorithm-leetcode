@@ -7,38 +7,14 @@ class Solution:
         if n == 0:
             return 0
 
-        dic52: Dict[int, int] = collections.defaultdict(lambda: 0)
         trail_zero_cou: int = 0
 
-        def recurse2zero():
-            nonlocal val
-            nonlocal trail_zero_cou
-            nonlocal dic52
-            if val % 10 == 0:
-                trail_zero_cou += 1
-                val = int(val / 10)
-                recurse2zero()
-            if val % 2 == 0:
-                if dic52[5] > 0:
+        for i in range(5, n + 1):
+            if i % 5 == 0:
+                while i % 5 == 0:
                     trail_zero_cou += 1
-                    dic52[5] -= 1
-                else:
-                    dic52[2] += 1
-                val = int(val / 2)
-                recurse2zero()
-            if val % 5 == 0:
-                if dic52[2] > 0:
-                    trail_zero_cou += 1
-                    dic52[2] -= 1
-                else:
-                    dic52[5] += 1
-                val = int(val / 5)
-                recurse2zero()
+                    i /= 5
 
-        val: int = 0
-        for i in range(1, n + 1):
-            val = i
-            recurse2zero()
         return trail_zero_cou
 
 

@@ -6,35 +6,22 @@ from typing import List
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         """
-        method1: 分类讨论思想
-        T(n): O(n)
-        S(n): O(n)
-        method2: 两边进行遍历
+        method2: 两边进行遍历，不使用除法
         T(n): O(n)
         S(n): O(n)
         """
-        des_list: List[int] = [0] * len(nums)
+        des_list: List[int] = [1] * len(nums)
 
-        no_zero_product = 1
-        zero_cou: int = 0
-        for num in nums:
-            if num != 0:
-                no_zero_product *= num
-            else:
-                zero_cou += 1
-        if zero_cou > 1:
-            return des_list
-        for i in range(len(nums)):
-            if nums[i] == 0:
-                if zero_cou == 1:
-                    des_list[i] = no_zero_product
-                else:
-                    des_list[i] = 0
-            else:
-                if zero_cou == 0:
-                    des_list[i] = no_zero_product // nums[i]
-                else:
-                    des_list[i] = 0
+        # 左乘
+        product = nums[0]
+        for i in range(1, len(nums)):
+            des_list[i] = product
+            product *= nums[i]
+        product = nums[len(nums) - 1]
+        # 右乘
+        for i in range(len(nums) - 2, -1, -1):
+            des_list[i] *= product
+            product *= nums[i]
 
         return des_list
 

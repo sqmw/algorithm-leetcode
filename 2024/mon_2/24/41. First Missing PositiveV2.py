@@ -9,16 +9,23 @@ class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
         """
         T(n): O(n)
-        S(n): O(n)
+        S(n): O(1)
+        正常的整数序列 [1,2,3,...] 即 index + 1 = val
         """
+
         if max(nums) <= 0:
             return 1
-        nums_set: Set = set(nums)
-        for i in range(1, max(nums_set) + 2):
-            if i not in nums_set:
-                return i
+        for i in range(len(nums)):
+            while 0 < nums[i] < len(nums) + 1 and i + 1 != nums[i] and nums[nums[i] - 1] != nums[i]:
+                nums[nums[i] - 1], nums[i] = nums[i], nums[nums[i] - 1]
+
+        # print(nums)
+        for i in range(len(nums)):
+            if nums[i] != i + 1:
+                return i + 1
+        return len(nums) + 1
 
 
 if __name__ == "__main__":
     s = Solution()
-    print(s.firstMissingPositive([7, 8, 9, 11, 12]))
+    print(s.firstMissingPositive([1,1]))

@@ -1,32 +1,35 @@
-import copy
 from typing import List, Dict, Set
+from collections import deque
 
 
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        """
-        使用拓扑排序
-        每次都在存在的节点里面找出没有前驱的节点，然后取出来作，直到为空
-        """
-        des_list: List[int] = []
+        # 构建邻接表
         graph_adj_dic: Dict[int, Set[int]] = {i: set() for i in range(numCourses)}
-        for trail_pre in prerequisites:
-            graph_adj_dic[trail_pre[1]].add(trail_pre[0])
+        in_degree = [0] * numCourses
 
-        nodes = set(graph_adj_dic.keys())
-        have_no_pre: Set = copy.copy(nodes)
-        while len(nodes) > 0:
-            for item in nodes:
-                for trail in graph_adj_dic[item]:
-                    have_no_pre.discard(trail)
-            if len(have_no_pre) == 0:
-                return []
-            for item in have_no_pre:
-                des_list.append(item)
-                nodes.remove(item)
-                # 时间复杂度来自这里
-            have_no_pre = copy.copy(nodes)
-        return des_list
+        for trail_pre in prerequisites:
+            # 构建邻接表
+            graph_adj_dic[trail_pre[1]].add(trail_pre[0])
+            # 用来表示一个节点的入度
+            in_degree[trail_pre[0]] += 1
+
+        # 初始化队列，将入度为0的节点加入队列
+        queue = deque([node for node, degree in enumerate(in_degree) if degree == 0])
+        result = []
+
+        while len(queue) > 0:
+            current_node = queue.popleft()
+            result.append(current_node)
+
+            # 更新邻接表和入度，并将入度为0的节点加入队列
+            for neighbor in graph_adj_dic[current_node]:
+                in_degree[neighbor] -= 1
+                if in_degree[neighbor] == 0:
+                    queue.append(neighbor)
+
+        # 如果结果集合的长度等于课程数，说明拓扑排序成功，返回结果
+        return result if len(result) == numCourses else []
 
 
 if __name__ == "__main__":

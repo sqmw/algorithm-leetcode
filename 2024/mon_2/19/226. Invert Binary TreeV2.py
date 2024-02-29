@@ -1,9 +1,3 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 from typing import Optional
 
 from util.core import tree_util
@@ -22,22 +16,20 @@ class Solution:
         """
         if root is None:
             return None
-        inverted_tree: Optional[TreeNode] = TreeNode()
 
-        def preorder_traverse(_root: Optional[TreeNode], _invert_root: Optional[TreeNode]):
+        def preorder_traverse(_root: Optional[TreeNode]):
             if _root is not None:
-                _invert_root.val = _root.val
-                if _root.left is not None:
-                    _invert_root.right = TreeNode()
-                    preorder_traverse(_root.left, _invert_root.right)
-                if _root.right is not None:
-                    _invert_root.left = TreeNode()
-                    preorder_traverse(_root.right, _invert_root.left)
+                t = _root.left
+                _root.left = _root.right
+                _root.right = t
+                preorder_traverse(_root.left)
+                preorder_traverse(_root.right)
 
-        preorder_traverse(root, inverted_tree)
-        return inverted_tree
+        preorder_traverse(root)
+        return root
 
 
 if __name__ == "__main__":
     s = Solution()
-    print(tree_util.tree2list_pre_traverse(s.invertTree(tree_util.list2tree_breadth_first_traverse([1, 2, 3]))))
+    print(tree_util.tree2list_pre_traverse(
+        s.invertTree(tree_util.list2tree_breadth_first_traverse([4, 2, 7, 1, 3, 6, 9]))))

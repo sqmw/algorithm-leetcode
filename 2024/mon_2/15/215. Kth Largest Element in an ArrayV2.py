@@ -5,29 +5,18 @@ from typing import List, Set, Dict
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         """
-        T(n): O(n*n) # 超时
-        S(n): O(1)
-        第 k 大的，等于第 (n + 1 - k 小)
+        T(n): O(val_max - val_min)
+        S(n): O(n)
+        还可以使用堆排序或者快排实现
         """
-        nums_count_dic: Dict[int, int] = collections.defaultdict(lambda: 0)
+        val_cou_dic: Dict[int, int] = collections.defaultdict(lambda: 0)
         for item in nums:
-            nums_count_dic[item] += 1
-        if k < len(nums) // 2:
-            for _ in range(k - 1):
-                val_max = max(nums_count_dic.keys())
-                if nums_count_dic[val_max] == 1:
-                    nums_count_dic.pop(val_max)
-                else:
-                    nums_count_dic[val_max] -= 1
-            return max(nums_count_dic)
-        else:
-            for _ in range(len(nums) - k):
-                val_min = min(nums_count_dic.keys())
-                if nums_count_dic[val_min] == 1:
-                    nums_count_dic.pop(val_min)
-                else:
-                    nums_count_dic[val_min] -= 1
-            return min(nums_count_dic)
+            val_cou_dic[item] += 1
+        large_th = 0
+        for i in range(max(nums), min(nums) - 1, -1):
+            large_th += val_cou_dic[i]
+            if large_th >= k:
+                return i
 
 
 if __name__ == "__main__":

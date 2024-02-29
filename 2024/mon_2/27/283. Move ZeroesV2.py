@@ -11,25 +11,16 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         """
-        T(n): O(cou_zero * n)
+        T(n): O(n)
         S(n): O(1)
-        
-        下面通过删除添加实现的，实际也可以直接通过移动元素的位置实现
         """
-        now_zero_index = len(nums)
-        for i in range(now_zero_index - 1, -1, -1):
-            if nums[i] != 0:
-                break
-            else:
-                now_zero_index -= 1
-        i = 0
-        while i < now_zero_index:
-            if nums[i] == 0:
-                del nums[i]
-                nums.append(0)
-                now_zero_index -= 1
-            else:
-                i += 1
+        left_add: int = 0
+        right_select: int = 0
+        while right_select < len(nums):
+            if nums[right_select] != 0:
+                nums[left_add], nums[right_select] = nums[right_select], nums[left_add]
+                left_add += 1
+            right_select += 1
 
 
 if __name__ == "__main__":

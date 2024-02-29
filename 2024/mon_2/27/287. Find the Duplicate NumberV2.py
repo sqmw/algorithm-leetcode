@@ -6,19 +6,28 @@ class Solution:
         """
         T(n): O(n)
         S(n): O(1)
-        实现思路：由题目知道，数组长度为 n + 1 包含了 [1,n]的所有数字，找出其中唯一的出现两次的那个，那么按照这个条件复位即可
+        使用 floyd 方法
         """
         # num[index] == index + 1
-        for i in range(len(nums)):
-            while nums[i] != i + 1:
-                if nums[nums[i] - 1] != nums[i]:
-                    a = i
-                    b = nums[i] - 1
-                    nums[a], nums[b] = nums[b], nums[a]
-                else:
-                    return nums[i]
+        slow = 0
+        fast = 0
+        while True:
+
+            # if slow == nums[slow] # 这个判定不需要，显然，当第一个 index == 0
+            # 就出现这个问题是不行的，然后就是在 非 index == 0 出现原地踏步，此时必然有一个值满足
+            #                              num[j] == num[index_now] and index_now != j
+            slow = nums[slow]
+            fast = nums[nums[fast]]
+            if fast == slow:
+                break
+        slow = 0
+        while slow != fast:
+            slow = nums[slow]
+            fast = nums[fast]
+        return slow
 
 
 if __name__ == "__main__":
     s = Solution()
-    print(s.findDuplicate([1, 3, 4, 2, 2]))
+    nums = [3, 1, 3, 4, 2]
+    print(s.findDuplicate(nums))

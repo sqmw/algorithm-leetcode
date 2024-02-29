@@ -15,17 +15,14 @@ from util.core.list_util import ListNode
 class Solution:
     def deleteNode(self, node):
         """
-        T(n): O(n)
+        T(n): O(1)
         S(n): O(1)
 
         通过把数字都向前移动一个位置、然后删除最后一个节点
         """
-        p: ListNode = node
-        while p.next.next is not None:
-            p.val = p.next.val
-            p = p.next
-        p.val = p.next.val
-        p.next = None
+        now_next = node.next
+        node.val = now_next.val
+        node.next = now_next.next
 
 
 if __name__ == "__main__":

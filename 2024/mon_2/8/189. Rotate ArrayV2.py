@@ -11,21 +11,23 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        # r 表示末尾移到开始
-        right = k % len(nums)
-        # 开始移到末尾
-        left = len(nums) - right
-        if right < left:
-            for i in range(right):
-                nums.insert(0, nums.pop())
-        else:
-            for i in range(left):
-                nums.append(nums[0])
-                del nums[0]
+        k = k % len(nums)
+
+        def reverse(start, end):
+            while start < end:
+                t = nums[start]
+                nums[start] = nums[end]
+                nums[end] = t
+                start += 1
+                end -= 1
+
+        reverse(0, len(nums) - 1)
+        reverse(0, k - 1)
+        reverse(k, len(nums) - 1)
 
 
 if __name__ == "__main__":
     nums = [1, 2, 3, 4, 5, 6, 7]
-    k = 5
+    k = 3
     Solution().rotate(nums, k)
     print(nums)

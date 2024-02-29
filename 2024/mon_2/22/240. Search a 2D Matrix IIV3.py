@@ -4,48 +4,29 @@ from typing import List
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         """
-        二维空间的二分...没完全实现，
-        通过递归更容易...代码似乎很复杂...性能还不讨好
+        起点权衡利弊、得心应手
+        T(n): O(m + n)
+        S(n): O(1)
         """
-        row = len(matrix)
-        column = len(matrix[0])
-        i_start = 0
-        j_start = 0
-
-        i_end = row - 1
-        j_end = column - 1
-
-        i_mid = (i_start + i_end) // 2
-        j_mid = (j_start + j_end) // 2
-
-        # 向右上
-        i = 1
-        mid_max = matrix[0][0]
-        mid_min = matrix[i_end][j_end]
-        while True:
-            if i_mid - i < 0 or j_mid + i > column - 1:
-                break
-
-            mid_min = min(mid_min, matrix[i_mid - i][j_mid + i])
-            mid_max = max(mid_max, matrix[i_mid - i][j_mid + i])
-            if matrix[i_mid - i][j_mid + i] == target:
+        row_cou = len(matrix)
+        column_cou = len(matrix[0])
+        i_start, j_start = row_cou - 1, 0
+        while i_start > -1 and j_start < column_cou:
+            if matrix[i_start][j_start] == target:
                 return True
-            i += 1
-        # 向左下
-        i = 1
-        mid_max = matrix[0][0]
-        mid_min = matrix[i_end][j_end]
-        while True:
-            if i_mid + i > row - 1 or j_mid - i < 0:
-                break
-            mid_min = min(mid_min, matrix[i_mid + i][j_mid - i])
-            mid_max = max(mid_max, matrix[i_mid + i][j_mid - i])
-            if matrix[i_mid + i][j_mid - i] == target:
-                return True
-            i += 1
+            elif target < matrix[i_start][j_start]:
+                i_start -= 1
+            else:
+                j_start += 1
         return False
 
 
 if __name__ == "__main__":
     s = Solution()
-    print(s.searchMatrix([[]], 1))
+    matrix = [[1, 4, 7, 11, 15],
+              [2, 5, 8, 12, 19],
+              [3, 6, 9, 16, 22],
+              [10, 13, 14, 17, 24],
+              [18, 21, 23, 26, 30]]
+    target = 30
+    print(s.searchMatrix(matrix, target))

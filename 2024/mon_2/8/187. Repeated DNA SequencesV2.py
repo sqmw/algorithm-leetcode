@@ -8,15 +8,17 @@ Output: ["AAAAACCCCC","CCCCCAAAAA"]
 
 class Solution:
     def findRepeatedDnaSequences(self, s: str) -> List[str]:
-        des_str_list: List[str] = []
-        temp_set: Set[str] = set()
-        for i in range(0, len(s) - 10):
-            if s.find(s[i:i + 10], i + 1) != -1:
-                temp_set.add(s[i:i + 10])
+        middle_set: Set[str] = set()
 
-        des_str_list = list(temp_set)
-        return des_str_list
+        hash_set: Set[str] = set()
+        for i in range(0, len(s) - 10 + 1):
+            if s[i:i + 10] in hash_set:
+                middle_set.add(s[i:i + 10])
+            else:
+                hash_set.add(s[i:i + 10])
+
+        return list(middle_set)
 
 
 if __name__ == "__main__":
-    print(Solution().findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"))
+    print(Solution().findRepeatedDnaSequences("AAAAAAAAAAA"))

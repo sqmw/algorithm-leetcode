@@ -1,32 +1,34 @@
-from typing import List
-
+import math
 
 class Solution:
     def countPrimes(self, n: int) -> int:
+        """
+        S(n): O(1)
+        T(n): O(n**1.5): 还是不能通过
+        :param n:
+        :return:
+        """
+
+        def is_prime(val: int):
+            if int(val ** 0.5) ** 2 == val:
+                return False
+            for i in range(2, int(math.ceil(val ** 0.5))):
+                if val % i == 0:
+                    return False
+            return True
+
         if n <= 2:
             return 0
         elif n == 3:
             return 1
-        prime_list: List[int] = [2]
+        prime_cou = 2
         # 每次取出一个数字
-        for item in range(3, n):
-            is_prime = True
-            boundary_val = prime_list[len(prime_list) - 1]
-            # 判断这个数字是不是 Prime
-            for i in range(0, len(prime_list)):
-                if item % prime_list[i] == 0:
-                    is_prime = False
-                    break
-                else:
-                    if prime_list[i] >= boundary_val:
-                        break
-                    boundary_val = item / prime_list[i]
-            if is_prime:
-                prime_list.append(item)
+        for item in range(4, n):
+            prime_cou += is_prime(item)
 
-        return len(prime_list)
+        return prime_cou
 
 
 if __name__ == "__main__":
     s = Solution()
-    print(s.countPrimes(5000000))
+    print(s.countPrimes(10))

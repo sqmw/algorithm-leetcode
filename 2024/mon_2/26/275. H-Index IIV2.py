@@ -18,18 +18,16 @@ class Solution:
 
         while left <= right:
             mid = (left + right) // 2
-            if citations[mid] >= len(citations) - mid \
-                    and (mid == 0 or citations[mid - 1] < len(citations) - mid + 1):
-                return len(citations) - mid
-            elif mid == 0 or citations[mid - 1] < len(citations) - mid + 1:
-                left = mid + 1
-            else:
+            if citations[mid] >= len(citations) - mid:
                 right = mid - 1
+            else:
+                left = mid + 1
+
         # return 0 if citations[0] == 0 else 1
-        return 0
+        return len(citations) - left
 
 
 if __name__ == "__main__":
     s = Solution()
-    citations = [2, 4, 7, 7, 7]
+    citations = [0]
     print(s.hIndex(citations))

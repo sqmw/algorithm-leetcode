@@ -7,11 +7,10 @@ class Solution:
         :return:
         """
         one_cou: int = 0
-        for i in range(31, -1, -1):
-            radix = 2 ** i
-            if n // radix == 1:
+        binary_num_str: str = bin(n)[2:]
+        for item in binary_num_str:
+            if item == '1':
                 one_cou += 1
-                n -= radix
         return one_cou
 
 
