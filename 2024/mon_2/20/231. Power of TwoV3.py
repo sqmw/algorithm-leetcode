@@ -4,16 +4,12 @@ from typing import List
 class Solution:
     def isPowerOfTwo(self, n: int) -> bool:
         """
-        T(n): O(n)
-        S(n): O(log(n))
+        T(n): O(1)
+        S(n): O(1)
         """
         if n == 0:
             return False
-        b_num_str = bin(n)
-        for i in range(3, len(b_num_str)):
-            if b_num_str[i] == '1':
-                return False
-        return True
+        return n & (n - 1) == 0
 
 
 if __name__ == '__main__':

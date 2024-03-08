@@ -5,7 +5,7 @@ class Solution:
     def countBits(self, n: int) -> List[int]:
         """
         method1: 转化为二进制，数二进制里面的 1 的个数，性能一般，属于较优解
-        T(n): O(n**2)
+        T(n): O(nlog(n))
         S(n): O(n)
         """
         des_arr: List[int] = []
