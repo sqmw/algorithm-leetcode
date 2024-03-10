@@ -1,41 +1,27 @@
+import asyncio
 import threading
 
-# 创建事件
-event_a = threading.Event()
-event_b = threading.Event()
-
-is_a = True
+val = 1
 
 
-def _print_a():
-    global is_a
-    t = 500000
-    while True:
-        if t > 0:
-            if is_a:
-                is_a = not is_a
-                print("A")
-                t -= 1
-        else:
-            break
+async def task_a():
+    global val
+    val += 1
+    await asyncio.sleep(2)
+    print('task_a')
 
 
-def _print_b():
-    global is_a
-    t = 500000
-    while True:
-        if t > 0:
-            if not is_a:
-                is_a = not is_a
-                print("B")
-                t -= 1
-        else:
-            break
+def task_b():
+    print('task_b')
 
-
-t_a = threading.Thread(target=_print_a)
-t_b = threading.Thread(target=_print_b)
 
 if __name__ == '__main__':
-    t_a.start()
-    t_b.start()
+    thread_a = threading.Thread(target=lambda: asyncio.run(task_a()))
+    thread_a.start()
+
+    thread_b = threading.Thread(target=task_b)
+    thread_b.start()
+
+    # thread_b.join()
+    # thread_a.join()
+    print('test')

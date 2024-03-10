@@ -4,6 +4,7 @@
 """
 求Sn=1!+2!+3!+4!+5!+…+n!之值，其中n是一个数字(n不超过20)。
 """
+import math
 
 
 def factorial(n: int) -> int:
@@ -18,4 +19,4 @@ def factorial(n: int) -> int:
 
 
 if __name__ == "__main__":
-    print(factorial(3))
+    print(math.pow(1200, 3))

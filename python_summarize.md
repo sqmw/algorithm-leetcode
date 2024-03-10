@@ -50,3 +50,8 @@
     - ljust == dart: padRight(width, padding)
     - rjust == dart: padLeft(width, padding)
 6. 位运算 (&/|/~/^)
+7. min/max
+    - 经过测试发现，如果是比较两个数字的时候，不适用 max或者min而是仅仅使用 if else 语句，性能提升了一倍
+    - 同样地，减少没有必要的重复计算也能够将性能大幅度提升
+8. len
+    - 如果一个值可以频繁调用一个method得到或者是可以直接获取，那么直接获取的性能会比通过method间接直接获取的性能好很多
