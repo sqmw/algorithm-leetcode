@@ -19,4 +19,4 @@ def factorial(n: int) -> int:
 
 
 if __name__ == "__main__":
-    print(math.pow(1200, 3))
+    print('123'.ljust(4, '%'))
