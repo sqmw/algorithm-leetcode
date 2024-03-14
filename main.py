@@ -4,19 +4,23 @@
 """
 求Sn=1!+2!+3!+4!+5!+…+n!之值，其中n是一个数字(n不超过20)。
 """
+import heapq
 import math
 
+cou = 0
 
-def factorial(n: int) -> int:
-    des_sum: int = 0
 
-    now_factorial = 1
-    for i in range(1, n + 1):
-        now_factorial *= i
-        des_sum += now_factorial
-
-    return des_sum
+def foo(n: int):
+    global cou
+    cou += 1
+    if n <= 3:
+        return 1
+    else:
+        return foo(n - 3) + foo(n - 5)
 
 
 if __name__ == "__main__":
-    print('123'.ljust(4, '%'))
+    l = [1, 2, 3, 4, 9, 6, 7]
+    heapq.heapify(l)
+    for _ in range(len(l)):
+        print(heapq.heappop(l))
