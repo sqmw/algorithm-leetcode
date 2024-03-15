@@ -1,4 +1,3 @@
-import datetime
 from random import randint, seed
 from typing import List
 
@@ -35,7 +34,7 @@ class Solution:
     def wiggleSort(self, nums: List[int]) -> None:
         n = len(nums)
         x = (n + 1) // 2
-        seed(datetime.datetime.now())
+        seed(None)
         target = Helper.quickSelect(nums, 0, n - 1, x - 1)
 
         transAddress = lambda i: (2 * n - 2 * i - 1) % (n | 1)
