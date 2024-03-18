@@ -1,4 +1,4 @@
-import time
+import sys
 
 
 def slow_fib(n: int):
@@ -9,6 +9,5 @@ def slow_fib(n: int):
 
 
 if __name__ == "__main__":
-    t = time.time()
-    print(slow_fib(45))
-    print(time.time() - t)
+    print(sys.maxsize)
+    print(sys.maxsize + sys.maxsize)
