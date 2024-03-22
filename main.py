@@ -1,4 +1,7 @@
-import sys
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+import collections
+from typing import Dict
 
 
 def slow_fib(n: int):
@@ -9,5 +12,4 @@ def slow_fib(n: int):
 
 
 if __name__ == "__main__":
-    print(sys.maxsize)
-    print(sys.maxsize + sys.maxsize)
+    print(isinstance(1, int))
