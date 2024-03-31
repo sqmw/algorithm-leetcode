@@ -4,9 +4,8 @@ import collections
 class Solution:
     def getSum(self, a: int, b: int) -> int:
         """
-        两个数字的相加，用补码来相加即可，这里主要就是模拟电脑的运算
-        :param a:
-        :param b:
+        两个数字的相加，用补码来相加即可，这里主要就是模拟电脑的位运算
+        无论是正数还是负数，转换成补码之后直接将符号位也参与相加得到的结果也是补码
         """
         if a < 0:
             # 这个操作就是 按位取反 + 1(就是求补码)，虽然题意不让使用 +-, 但这里符合题目的考察要求
@@ -18,9 +17,12 @@ class Solution:
         carry = 0
         des_str_list = collections.deque()
         for i in range(13, -1, -1):
-            total = carry + a_bin_int_list[i] + b_bin_str_list[i]
-            carry = total >> 1
-            des_str_list.appendleft(total & 1)
+            # total = carry + a_bin_int_list[i] + b_bin_str_list[i]
+            # carry = total >> 1
+            # des_str_list.appendleft(total & 1)
+            des_str_list.appendleft(carry ^ a_bin_int_list[i] ^ b_bin_str_list[i])
+            carry = (carry & a_bin_int_list[i]) | (carry & b_bin_str_list[i]) | (a_bin_int_list[i] & b_bin_str_list[i])
+
         des_str_list.appendleft(carry)
         des_num = int(''.join(map(str, des_str_list)), 2)
         # 移除高位

@@ -1,2 +1,2 @@
 if __name__ == "__main__":
-    print(1 ^ 0)
+    print(0 ^ 1000)
