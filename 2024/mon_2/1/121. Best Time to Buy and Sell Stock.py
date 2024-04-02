@@ -4,6 +4,7 @@ from typing import List
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         """
+        method: 使用动态规划实现，和官方题解不一样
         实际难度： 中等
         T(n): O(n)
         S(n): O(1)
@@ -21,4 +22,4 @@ class Solution:
 
 
 if __name__ == "__main__":
-    print(Solution().maxProfit([3, 3, 5, 0, 0, 3, 1, 4]))
+    print(Solution().maxProfit([7, 1, 2, 5, 3, 6, 4]))
