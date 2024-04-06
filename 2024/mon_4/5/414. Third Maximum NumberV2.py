@@ -1,26 +1,24 @@
 from typing import List
 
+from sortedcontainers import SortedList
+
 
 class Solution:
     def thirdMax(self, nums: List[int]) -> int:
         """
         :param nums:
         :return:
+        method2: 使用 SortedSet[也就是 SortedList]
         T(n): O(n)
-        S(n): O(n)
+        S(n): O(1)
         """
-        nums: List[int] = list(set(nums))
-        if len(nums) < 3:
-            return max(nums)
-        # 这里选择使用选择排序 # 每次都选择一个最大的数字
-        for i in range(3):
-            num_max_index = i
-            for j in range(i + 1, len(nums)):
-                if nums[j] > nums[num_max_index]:
-                    num_max_index = j
-            nums[i], nums[num_max_index] = nums[num_max_index], nums[i]
-
-        return nums[2]
+        sorted_list = SortedList()
+        for num in nums:
+            if num not in sorted_list:
+                sorted_list.add(num)
+                if len(sorted_list) > 3:
+                    sorted_list.pop(0)
+        return sorted_list[0] if len(sorted_list) == 3 else max(sorted_list)
 
 
 if __name__ == "__main__":
