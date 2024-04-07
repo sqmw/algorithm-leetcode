@@ -1,14 +1,28 @@
-def cubic_root(a, epsilon=1e-6, max_iterations=100):
-    x = a / 3  # 初始估计值，可以选择 a / 3 或其他合适的值
-    for _ in range(max_iterations):
-        x_next = (2 * x + a / (x ** 2)) / 3  # 牛顿迭代法的迭代公式
-        if abs(x_next - x) < epsilon:
-            return x_next
-        x = x_next
-    return x  # 返回近似的三次方根
+from typing import List
 
 
-# 示例用法
-a = 2
-root = cubic_root(a)
-print(f"The cubic root of {a} is approximately: {root}")
+def sum_of_modes(arr: List[int]):
+    count_1 = [0] * (len(arr) + 1)
+    count_2 = [0] * (len(arr) + 1)
+
+    for i in range(1, len(arr) + 1):
+        count_1[i] = count_1[i - 1] + (1 if arr[i - 1] == 1 else 0)
+        count_2[i] = count_2[i - 1] + (1 if arr[i - 1] == 2 else 0)
+
+    sum_modes = 0
+    for start in range(len(arr)):
+        for end in range(start + 1, len(arr) + 1):
+            ones = count_1[end] - count_1[start]
+            twos = count_2[end] - count_2[start]
+            if ones >= twos:
+                sum_modes += 1
+            else:
+                sum_modes += 2
+
+    return sum_modes
+
+
+if __name__ == "__main__":
+    # Example usage:
+    arr = [2, 1, 2]
+    print(sum_of_modes(arr))

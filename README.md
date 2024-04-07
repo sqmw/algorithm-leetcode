@@ -50,15 +50,18 @@
 
 3. traceback(216)
 
-```
-if condition_if:
-    des_arr.append(path[:])
-else:
-    for condition_for:
-        path.append()
-        traceback()
-        path.pop()
-```
+    ```
+    if condition_if:
+        des_arr.append(path[:])
+    else:
+        for condition_for:
+            path.append()
+            traceback()
+            path.pop()
+    ```
+
+4. Memoization(375)
+    - 本质是动态规划的逆向思维 & 递归
 
 ### 贪心算法难题
 
@@ -81,6 +84,7 @@ else:
         print(nums)  # [1, 1, 2, 2, 3, 3, 4, 4]       
       ```
     - 322(换零钱问题,在这里需要使用记忆化搜索实现)
+    - 375(miniMax, 需要使用缓存方式来进行搜索)
 
 ### 回溯思想难题
 
