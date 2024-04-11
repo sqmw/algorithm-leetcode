@@ -1,10 +1,11 @@
 import sys
-from typing import List, Optional
+from typing import List
 
 
 class Solution:
     def getMoneyAmount(self, n: int) -> int:
         """
+        这个代码有问题，提交修改之后未修改到正确，下一个版本才是正确的
         1,2,3,4,5,6,7,8,9,10
         method1：# 逻辑有错误，应该将大于等于最小的长度的路径都存起来(作为候选值)
             1. 通过选中的节点，递归定义一个二叉树，选择出所有二叉树里面的最小的每个最长和
