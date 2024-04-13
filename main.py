@@ -2,4 +2,4 @@ import random
 
 if __name__ == "__main__":
     # Example usage:
-    print(random.randint(0, 1))
+    print(1.5 - 0.5)
