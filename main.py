@@ -1,4 +1,2 @@
-import random
-
 if __name__ == "__main__":
-    print('-1'.isdigit())
+    print('5F3Z-2e-9-w'.upper())
