@@ -4,7 +4,7 @@ from typing import List
 class Solution:
     def lengthLongestPath(self, input: str) -> int:
         """
-        有点类似直接构造二叉树的题目
+        有点类似直接构造二叉树的题目，下面的解法是错误的
         """
         now_index: int = 0
         path: List[str] = []
