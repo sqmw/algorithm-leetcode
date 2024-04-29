@@ -11,6 +11,8 @@ class Solution:
             S(n): O(log(n))
         method2:
             使用贪心算法求解
+            T(n): O(log(n))
+            S(n): O(1)
             对于每一个数字
             # 此时表示 n 为偶数
             if n % 2 == 0:

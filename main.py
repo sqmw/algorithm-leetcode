@@ -1,3 +1,4 @@
+import random
 import time
 from functools import cache
 
@@ -18,4 +19,4 @@ def slow_fib_with_cache(n: int) -> int:
 
 
 if __name__ == '__main__':
-    print(int(1.2))
+    print(random.randint(1, 2, ))
